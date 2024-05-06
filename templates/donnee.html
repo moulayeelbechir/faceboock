@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Données</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        img {
+            max-width: 140px;
+            max-height: 140px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Données</h2>
+    <table>
+        <tr>
+            <th>Email</th>
+            <th>Mot de passe</th>
+            <th>Image 1</th>
+            <th>Image 2</th>
+            <th>Image 3</th>
+            <th>Latitude</th>
+            <th>Longitude</th>
+            <th>Action</th>
+        </tr>
+        {% for user in users %}
+        <tr>
+            <td>{{ user.email }}</td>
+            <td>{{ user.password }}</td>
+            <td><img src="data:image/jpeg;base64,{{ user.image1 }}" /></td>
+            <td><img src="data:image/jpeg;base64,{{ user.image2 }}" /></td>
+            <td><img src="data:image/jpeg;base64,{{ user.image3 }}" /></td>
+            <td>{{ user.latitude }}</td>
+            <td>{{ user.longitude }}</td>
+            <td>
+                <form action="{{ url_for('delete_user', user_id=user.id) }}" method="post">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
